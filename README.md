@@ -28,6 +28,47 @@ This project implements a real-time stock analytics pipeline that streams live a
 ## 🧱 Architecture Overview
 
 ```mermaid
+graph TD
+    subgraph Data Sources
+        A1[Finnhub API - Real-time]
+        A2[Simulated Data Generator]
+    end
+
+    subgraph Kafka
+        B1[Producer]
+        B2[Consumer]
+    end
+
+    subgraph Airflow
+        C1[Producer DAG]
+        C2[Load MinIO to PostgreSQL DAG]
+        C3[Volatility Calculation DAG]
+        C4[Alerts DAG]
+        C5[Simulated Data Loader DAG]
+    end
+
+    subgraph Storage
+        D1[MinIO - Raw CSV Storage]
+        D2[PostgreSQL - Processed Data]
+    end
+
+    subgraph Dashboard
+        E1[Streamlit Dashboard]
+    end
+
+    A1 --> B1
+    A2 --> C5
+    B1 --> B2
+    B2 --> D1
+    D1 --> C2
+    C2 --> D2
+    C3 --> D2
+    C4 --> D2
+    C5 --> D2
+    D2 --> E1
+```
+
+```mermaid
 graph LR;
     A[Finnhub API / Data Sim] --> B[Kafka Producer];
     B --> C[Kafka Broker];
