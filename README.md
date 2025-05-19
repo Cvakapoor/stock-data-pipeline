@@ -25,6 +25,8 @@ This project implements a real-time stock analytics pipeline that streams live a
 
 ---
 
+## 🧱 Architecture Overview
+
 ```mermaid
 graph LR;
     A[Finnhub API / Data Sim] --> B[Kafka Producer];
@@ -37,52 +39,6 @@ graph LR;
     G --> I[Streamlit Dashboard];
 ```
 
-## 🧱 Architecture Overview
-
-```plaintext
-+------------------------------+
-|  Finnhub API / Data Sim      |
-+--------------+---------------+
-               |
-               ▼
-      +--------+--------+
-      |   Kafka Producer |
-      +--------+--------+
-               |
-               ▼
-        +------+------+
-        | Kafka Broker |
-        +------+------+
-               |
-               ▼
-      +--------+--------+
-      |  Kafka Consumer  |
-      +--------+--------+
-               |
-               ▼
-        +------+------+
-        |   MinIO (Raw  |
-        |   CSV Storage)|
-        +------+------+
-               |
-               ▼
-      +--------+--------+
-      | Airflow DAGs     |
-      | (ETL & Scheduler)|
-      +--------+--------+
-               |
-               ▼
-       +-------+--------+
-       |   PostgreSQL   |
-       | (Processed DB) |
-       +---+--------+---+
-           |        |
-           ▼        ▼
-+----------------+ +-----------------------+
-| Volatility &   | |  Streamlit Dashboard |
-| Alert Scripts  | |   (Interactive UI)   |
-+----------------+ +-----------------------+
-```
 ---
 
 ## ⚙️ Setup Instructions
