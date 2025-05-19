@@ -80,10 +80,15 @@ This project implements a real-time stock analytics pipeline that streams live a
 <pre> cd stock-volatility-pipeline</pre>
   
 - ⏰ **Run PostgreSQL and Airflow**
-      1. You can either:
-        -Run PostgreSQL and Airflow in separate containers manually, or
-        -Integrate both into a unified docker-compose.yml setup. Ensure docker-compose.yml is updated accordingly, and drop/recreate the Docker network if needed.
-    📌 Make sure the airflow and postgres services are connected via the same Docker network.
+
+You can either:
+
+- Run PostgreSQL and Airflow in separate containers manually, or
+- Integrate both into a unified `docker-compose.yml` setup.
+
+Make sure to update your `docker-compose.yml` accordingly, and drop/recreate the Docker network if needed.
+
+📌 **Note:** Ensure that the Airflow and PostgreSQL services are connected via the same Docker network.
 
 ---
 
