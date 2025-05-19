@@ -123,3 +123,4 @@ The project includes an interactive **Streamlit dashboard** (streamlit_app.py) t
   
 - ⚠️ **Recent Alerts** — Table of triggered alert messages
   
+![Image](https://github.com/user-attachments/assets/d714474b-55f1-438a-849c-1d68639faacf)
