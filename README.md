@@ -51,3 +51,13 @@ This project implements a real-time stock analytics pipeline that streams live a
            |     Streamlit UI     |
            |  Interactive Charts  |
            +----------------------+
+
+graph TD
+    A[Finnhub API / Simulated Generator] --> B[Kafka Producer]
+    B --> C[Kafka Broker]
+    C --> D[Kafka Consumer]
+    D --> E[MinIO (Raw CSV Storage)]
+    E --> F[Airflow DAG]
+    F --> G[PostgreSQL (Processed Data)]
+    G --> H[Volatility & Alert Scripts]
+    G --> I[Streamlit Dashboard]
