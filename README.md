@@ -24,6 +24,18 @@ This project implements a real-time stock analytics pipeline that streams live a
 - **psycopg2** – PostgreSQL database connector for Python
 
 ---
+```mermaid
+graph LR
+    A[Finnhub API / Data Sim] --> B[Kafka Producer]
+    B --> C[Kafka Broker]
+    C --> D[Kafka Consumer]
+    D --> E[MinIO (Raw CSV Storage)]
+    E --> F[Airflow DAGs (ETL & Scheduler)]
+    F --> G[PostgreSQL (Processed Data)]
+    G --> H[Volatility & Alert Scripts]
+    G --> I[Streamlit Dashboard]
+```
+
 
 ## 🧱 Architecture Overview
 
