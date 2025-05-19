@@ -28,32 +28,44 @@ This project implements a real-time stock analytics pipeline that streams live a
 ## 🧱 Architecture Overview
 
 ```mermaid
+%%{init: {'themeVariables': { 'primaryColor': '#f9f', 'edgeLabelBackground':'#eee', 'clusterBkg': '#ddf'}}}%%
 graph TD
+    classDef source fill:#f9f,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
+    classDef kafka fill:#ffeb3b,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
+    classDef airflow fill:#90caf9,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
+    classDef storage fill:#a5d6a7,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
+    classDef dashboard fill:#ffccbc,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
+
     subgraph Data Sources
-        A1[Finnhub API - Real-time]
-        A2[Simulated Data Generator]
+        direction TB
+        A1[Finnhub API - Real-time]:::source
+        A2[Simulated Data Generator]:::source
     end
 
     subgraph Kafka
-        B1[Producer]
-        B2[Consumer]
+        direction TB
+        B1[Producer]:::kafka
+        B2[Consumer]:::kafka
     end
 
     subgraph Airflow
-        C1[Producer DAG]
-        C2[Load MinIO to PostgreSQL DAG]
-        C3[Volatility Calculation DAG]
-        C4[Alerts DAG]
-        C5[Simulated Data Loader DAG]
+        direction TB
+        C1[Producer DAG]:::airflow
+        C2[Load MinIO to PostgreSQL DAG]:::airflow
+        C3[Volatility Calculation DAG]:::airflow
+        C4[Alerts DAG]:::airflow
+        C5[Simulated Data Loader DAG]:::airflow
     end
 
     subgraph Storage
-        D1[MinIO - Raw CSV Storage]
-        D2[PostgreSQL - Processed Data]
+        direction TB
+        D1[MinIO - Raw CSV Storage]:::storage
+        D2[PostgreSQL - Processed Data]:::storage
     end
 
     subgraph Dashboard
-        E1[Streamlit Dashboard]
+        direction TB
+        E1[Streamlit Dashboard]:::dashboard
     end
 
     A1 --> B1
@@ -66,18 +78,6 @@ graph TD
     C4 --> D2
     C5 --> D2
     D2 --> E1
-```
-
-```mermaid
-graph LR;
-    A[Finnhub API / Data Sim] --> B[Kafka Producer];
-    B --> C[Kafka Broker];
-    C --> D[Kafka Consumer];
-    D --> E[MinIO - Raw CSV Storage];
-    E --> F[Airflow DAGs - ETL & Scheduler];
-    F --> G[PostgreSQL - Processed Data];
-    G --> H[Volatility & Alert Scripts];
-    G --> I[Streamlit Dashboard];
 ```
 
 ---
