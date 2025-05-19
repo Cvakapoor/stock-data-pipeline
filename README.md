@@ -116,7 +116,10 @@ Make sure to update your `docker-compose.yml` accordingly, and drop/recreate the
 ## 📊 Streamlit Dashboard
 
 The project includes an interactive **Streamlit dashboard** (streamlit_app.py) to visualize real-time stock metrics, including:
+
 - 📈 **Price Trends** — Line chart of price over time
+  
 - 🌪️ **Volatility Metrics** — Visuals for volatility and Sharpe ratio
+  
 - ⚠️ **Recent Alerts** — Table of triggered alert messages
   
