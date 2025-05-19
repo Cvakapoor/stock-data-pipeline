@@ -1,0 +1,94 @@
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.9.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"  # Exposing port 2181 on your host
+
+  kafka:
+    image: confluentinc/cp-kafka:7.9.0
+    ports:
+      - "9092:9092"  # Exposing Kafka's port
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    healthcheck:
+      test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    ports:
+      - "9002:9000"  # Access Kafdrop UI on localhost:9002
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+    depends_on:
+      - kafka
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"  # Exposing Minio's UI on localhost:9000
+      - "9001:9001"  # Exposing Minio's Admin UI on localhost:9001
+    volumes:
+      - ./storage:/data  # Mounting storage folder for Minio
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    command: server /data --console-address ":9001"
+    
+  producer:
+    build: ./producer  # Building from the local producer directory
+    depends_on:
+      - kafka  # Wait for Kafka to start
+
+  consumer:
+    build: ./consumer  # Building from the local consumer directory
+    volumes:
+      - ./storage/processed:/app/storage/processed # Mount processed data to storage
+    depends_on:
+      - kafka  # Wait for Kafka to start
+      - minio  # Wait for Minio to start
+  
+  loader:
+    build: ./loader  # Assuming the loader Dockerfile is in the 'loader' directory
+    depends_on:
+      - minio   # Wait for MinIO to start
+    networks:
+      - default
+    volumes:
+      - ./loader:/app  # Optional: if you want to mount code live for dev
+
+  volatility:
+    build: ./volatility
+    networks:
+      - default
+
+  alerts:
+    build: ./alerts
+    networks:
+      - default
+
+  historical_loader:
+    build: ./historical_loader
+    networks:
+      - default
+
+  streamlit_app:
+    build: ./streamlit_app
+    ports:
+      - "8501:8501"
+    networks:
+      - default
+
+networks:
+  default:
+    external: true  # Uses an existing network (ensure `airflow_net` exists)
+    name: airflow_net  # Replace with your actual network name if necessary
