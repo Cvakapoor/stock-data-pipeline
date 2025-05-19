@@ -75,9 +75,8 @@ This project implements a real-time stock analytics pipeline that streams live a
 ## ⚙️ Setup Instructions
 
 - ⏰ **Clone the Repository**
-      ```bash
-      git clone https://github.com/cvakapoor/stock-volatility-pipeline.git
-      cd stock-volatility-pipeline
+     <pre> ```bash git clone https://github.com/your-username/stock-volatility-pipeline.git 
+       cd stock-volatility-pipeline ``` </pre>
   
 - ⏰ **Run PostgreSQL and Airflow**
       You can either:
