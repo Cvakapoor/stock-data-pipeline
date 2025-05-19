@@ -6,6 +6,15 @@ This project implements a real-time stock analytics pipeline that streams live a
 
 ## 🚀 Features
 
+| Component     | Tool                   |
+| ------------- | ---------------------- |
+| Orchestration | Apache Airflow         |
+| Messaging     | Apache Kafka           |
+| Storage       | PostgreSQL, MinIO      |
+| Programming   | Python, Pandas, NumPy  |
+| Visualization | Streamlit              |
+| Deployment    | Docker, Docker Compose |
+
 - ⏰ **Scheduled Data Ingestion**: Fetches stock price data from an external API every minute using Apache Airflow.
 - 🧮 **Volatility Computation**: Calculates rolling volatility, returns, and Sharpe ratio using pandas.
 - ⚠️ **Anomaly Detection**: Detects significant volatility spikes and logs risk alerts.
