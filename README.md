@@ -23,45 +23,68 @@ This project implements a real-time stock analytics pipeline that streams live a
 - **Pandas / Plotly** – Data processing and charting
 - **psycopg2** – PostgreSQL database connector for Python
 
-
-graph TD
-    A[Finnhub API / Simulated Generator] --> B[Kafka Producer] --> C[Kafka Broker]
-    C --> D[Kafka Consumer]
-    D --> E[MinIO (Raw CSV Storage)]
-    E --> F[Airflow DAG]
-    F --> G[PostgreSQL (Processed Data)]
-    
-    %% Branch horizontally from PostgreSQL
-    G --> H[Volatility & Alert Scripts]
-    G --> I[Streamlit Dashboard]
-
 ---
 
 ## 🧱 Architecture Overview
 
-```plaintext
-          +------------------------+
-          |    Stock API Source    |
-          +-----------+------------+
-                      |
-                      ▼
-         +------------+------------+
-         |     Airflow DAGs        |
-         |  (price fetch & alerts) |
-         +------------+------------+
-                      |
-                      ▼
-            +---------+---------+
-            |     PostgreSQL    |
-            |  stock_prices     |
-            |  stock_volatility |
-            |  stock_alerts     |
-            +---------+---------+
-                      |
-                      ▼
-           +----------+----------+
-           |     Streamlit UI     |
-           |  Interactive Charts  |
-           +----------------------+
+      ┌────────────────────┐
+      │ Finnhub API / Sim  │
+      └─────────┬──────────┘
+                ▼
+        ┌───────┴────────┐
+        │ Kafka Producer │
+        └───────┬────────┘
+                ▼
+         ┌──────┴───────┐
+         │ Kafka Broker │
+         └──────┬───────┘
+                ▼
+        ┌───────┴────────┐
+        │ Kafka Consumer │
+        └───────┬────────┘
+                ▼
+         ┌──────┴───────┐
+         │   MinIO      │
+         │ (Raw Storage)│
+         └──────┬───────┘
+                ▼
+         ┌──────┴───────┐
+         │   Airflow    │
+         │   (ETL DAGs) │
+         └──────┬───────┘
+                ▼
+          ┌─────┴─────┐
+          │ PostgreSQL │
+          │ (Clean DB) │
+          └────┬──┬────┘
+               │  │
+     ┌─────────┘  └────────────┐
+     ▼                         ▼
+┌───────────────┐       ┌───────────────────┐
+│ Volatility &  │       │   Streamlit UI    │
+│ Alert Scripts │       │ (Dashboard Viewer)│
+└───────────────┘       └───────────────────┘
 
+---
 
+## ⚙️ Setup Instructions
+
+- ⏰ **Clone the Repository**
+      git clone https://github.com/cvakapoor/stock-volatility-pipeline.git
+      cd stock-volatility-pipeline
+  
+- ⏰ **Run PostgreSQL and Airflow**
+      You can either:
+        Run PostgreSQL and Airflow in separate containers manually, or
+        Integrate both into a unified docker-compose.yml setup. Ensure docker-compose.yml is updated accordingly, and drop/recreate the Docker network if needed.
+    📌 Make sure the airflow and postgres services are connected via the same Docker network.
+
+---
+
+## 📊 Streamlit Dashboard
+
+The project includes an interactive **Streamlit dashboard** (streamlit_app.py) to visualize real-time stock metrics, including:
+- 📈 **Price Trends** — Line chart of price over time
+- 🌪️ **Volatility Metrics** — Visuals for volatility and Sharpe ratio
+- ⚠️ **Recent Alerts** — Table of triggered alert messages
+  
