@@ -77,7 +77,7 @@ plain text
 
 - ⏰ **Clone the Repository**
      <pre> git clone https://github.com/your-username/stock-volatility-pipeline.git 
-       cd stock-volatility-pipeline </pre>
+     cd stock-volatility-pipeline </pre>
   
 - ⏰ **Run PostgreSQL and Airflow**
       You can either:
