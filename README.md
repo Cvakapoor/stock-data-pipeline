@@ -70,8 +70,7 @@ This project implements a real-time stock analytics pipeline that streams live a
 | Volatility &   | |  Streamlit Dashboard |
 | Alert Scripts  | |   (Interactive UI)   |
 +----------------+ +-----------------------+
-```plaintext
-
+```
 ---
 
 ## ⚙️ Setup Instructions
