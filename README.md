@@ -23,6 +23,18 @@ This project implements a real-time stock analytics pipeline that streams live a
 - **Pandas / Plotly** – Data processing and charting
 - **psycopg2** – PostgreSQL database connector for Python
 
+
+graph TD
+    A[Finnhub API / Simulated Generator] --> B[Kafka Producer] --> C[Kafka Broker]
+    C --> D[Kafka Consumer]
+    D --> E[MinIO (Raw CSV Storage)]
+    E --> F[Airflow DAG]
+    F --> G[PostgreSQL (Processed Data)]
+    
+    %% Branch horizontally from PostgreSQL
+    G --> H[Volatility & Alert Scripts]
+    G --> I[Streamlit Dashboard]
+
 ---
 
 ## 🧱 Architecture Overview
@@ -52,12 +64,4 @@ This project implements a real-time stock analytics pipeline that streams live a
            |  Interactive Charts  |
            +----------------------+
 
-graph TD
-    A[Finnhub API / Simulated Generator] --> B[Kafka Producer]
-    B --> C[Kafka Broker]
-    C --> D[Kafka Consumer]
-    D --> E[MinIO (Raw CSV Storage)]
-    E --> F[Airflow DAG]
-    F --> G[PostgreSQL (Processed Data)]
-    G --> H[Volatility & Alert Scripts]
-    G --> I[Streamlit Dashboard]
+
