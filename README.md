@@ -83,8 +83,8 @@ This project implements a real-time stock analytics pipeline that streams live a
 
 You can either:
 
-- Run PostgreSQL and Airflow in separate containers manually, or
-- Integrate both into a unified `docker-compose.yml` setup.
+1. Run PostgreSQL and Airflow in separate containers manually, or
+2. Integrate both into a unified `docker-compose.yml` setup.
 
 Make sure to update your `docker-compose.yml` accordingly, and drop/recreate the Docker network if needed.
 
