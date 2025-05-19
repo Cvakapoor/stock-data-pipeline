@@ -1,0 +1,22 @@
+AAPL,Apple Inc
+MSFT,Microsoft Corp
+AMZN,Amazon.com Inc
+NVDA,Nvidia Corp
+GOOGL,Alphabet Inc Cl A
+TSLA,Tesla Inc
+META,Meta Platforms Inc Class A
+BRK.B,Berkshire Hathaway Inc Cl B
+UNH,Unitedhealth Group Inc
+JPM,Jpmorgan Chase & Co
+JNJ,Johnson & Johnson
+XOM,Exxon Mobil Corp
+V,Visa Inc Class a Shares
+PG,Procter & Gamble Co
+MA,Mastercard Inc A
+CVX,Chevron Corp
+PEP,Pepsico Inc
+COST,Costco Wholesale Corp
+KO,Coca Cola Co
+GE,General Electric Co
+MS,Morgan Stanley
+NCLH,Norwegian Cruise Line Holdin
