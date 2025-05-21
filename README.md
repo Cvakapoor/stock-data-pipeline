@@ -41,7 +41,7 @@ This project implements a **real-time stock analytics pipeline** that streams li
 
 ```mermaid
 %%{init: {'themeVariables': { 'primaryColor': '#f9f', 'edgeLabelBackground':'#eee', 'clusterBkg': '#ddf'}}}%%
-graph TD
+flowchart TD
     classDef source fill:#f9f,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
     classDef kafka fill:#ffeb3b,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
     classDef airflow fill:#90caf9,stroke:#333,stroke-width:1px,color:#000,font-weight:bold;
@@ -80,7 +80,6 @@ graph TD
         E1[Streamlit Dashboard]:::dashboard
     end
 
-    flowchart TD
     A1 --> B1
     A2 --> C5
     B1 --> B2
