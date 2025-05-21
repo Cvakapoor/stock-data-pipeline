@@ -80,6 +80,7 @@ graph TD
         E1[Streamlit Dashboard]:::dashboard
     end
 
+    flowchart TD
     A1 --> B1
     A2 --> C5
     B1 --> B2
